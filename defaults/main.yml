@@ -1,0 +1,3 @@
+---
+# defaults file for server_security
+ssh_port: 22

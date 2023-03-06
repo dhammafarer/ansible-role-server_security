@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include palekiwi.server_security"
+      ansible.builtin.include_role:
+        name: "palekiwi.server_security"
