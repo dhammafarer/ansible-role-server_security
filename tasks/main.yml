@@ -2,3 +2,6 @@
 # tasks file for server_security
 - name: Import ssh tasks.
   ansible.builtin.import_tasks: ssh.yml
+
+- name: Import sudo tasks.
+  ansible.builtin.import_tasks: sudo.yml
