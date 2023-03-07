@@ -6,9 +6,23 @@ selinux_ports_enabled:
   - ports: "{{ ssh_port }}"
     setype: "ssh_port_t"
 
+# Firewall
 ufw_ports:
   - { rule: "allow", port: "{{ ssh_port }}", proto: "tcp" }
   - { rule: "allow", port: 80, proto: "tcp" }
+  - { rule: "allow", port: 443, proto: "tcp" }
   - { rule: "allow", port: 123, proto: "udp" }
+
+firewalld_ports:
+  - { state: "enabled", port: "{{ ssh_port }}/tcp"}
+
+firewalld_services:
+  - { state: "enabled", service: "http" }
+  - { state: "enabled", service: "https" }
+  - { state: "enabled", service: "ntp" }
+  - { state: "enabled", service: "dhcpv6-client" }
+  - { state: "disabled", service: "cockpit" }
+
+firewalld_zone: "public"
 
 user_name: vagrant
