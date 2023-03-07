@@ -1,0 +1,20 @@
+---
+- name: Ensure EPEL repo is present.
+  become: true
+  ansible.builtin.dnf:
+    name: epel-release
+    state: present
+
+- name: Ensure fail2ban is installed.
+  become: true
+  ansible.builtin.dnf:
+    name: fail2ban
+    state: present
+    enablerepo: epel
+
+- name: Ensure fail2ban service is started and enabled.
+  become: true
+  ansible.builtin.service:
+    name: fail2ban
+    state: started
+    enabled: true
