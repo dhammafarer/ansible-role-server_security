@@ -3,7 +3,12 @@
 ssh_port: 22
 
 selinux_ports_enabled:
-  - ports: "22"
+  - ports: "{{ ssh_port }}"
     setype: "ssh_port_t"
+
+ufw_ports:
+  - { rule: "allow", port: "{{ ssh_port }}", proto: "tcp" }
+  - { rule: "allow", port: 80, proto: "tcp" }
+  - { rule: "allow", port: 123, proto: "udp" }
 
 user_name: vagrant
