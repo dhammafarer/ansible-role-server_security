@@ -5,7 +5,14 @@
     name:
       - policycoreutils
       - policycoreutils-python-utils
+      - setools-console
     state: present
+
+- name: Ensure SELinux is enabled in `targeted` mode.
+  become: true
+  ansible.posix.selinux:
+    policy: targeted
+    state: enforcing
 
 - name: Enable custom port {{ ssh_port }}.
   become: true
