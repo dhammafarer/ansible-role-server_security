@@ -1,6 +1,0 @@
----
-- name: Remove unused packages.
-  ansible.builtin.dnf:
-    name:
-      - nano
-    state: absent

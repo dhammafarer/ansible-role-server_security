@@ -1,0 +1,18 @@
+---
+- name: Ensure essential SELinux packages are installed.
+  become: true
+  ansible.builtin.package:
+    name:
+      - policycoreutils
+      - policycoreutils-python-utils
+    state: present
+
+- name: Enable custom port {{ ssh_port }}.
+  become: true
+  community.general.seport:
+    ports: "{{ item.ports }}"
+    proto: tcp
+    setype: "{{ item.setype }}"
+    state: present
+  loop: "{{ selinux_ports_enabled }}"
+  when: ansible_selinux.status == 'enabled'

@@ -2,4 +2,8 @@
 # defaults file for server_security
 ssh_port: 22
 
+selinux_ports_enabled:
+  - ports: "22"
+    setype: "ssh_port_t"
+
 user_name: vagrant

@@ -1,0 +1,4 @@
+---
+- name: Print debug message.
+  ansible.builtin.debug:
+    msg: "Firewall tasks for {{ ansible_facts['os_family'] }}"
