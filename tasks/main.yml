@@ -14,3 +14,6 @@
 
 - name: Import firewall tasks.
   ansible.builtin.import_tasks: firewall/main.yml
+
+- name: Import fail2ban tasks.
+  ansible.builtin.import_tasks: fail2ban/main.yml
