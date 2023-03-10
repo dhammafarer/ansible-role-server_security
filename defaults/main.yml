@@ -20,6 +20,7 @@ firewalld_services:
   - { state: "enabled", service: "http" }
   - { state: "enabled", service: "https" }
   - { state: "enabled", service: "ntp" }
+  - { state: "enabled", service: "ssh" }
   - { state: "enabled", service: "dhcpv6-client" }
   - { state: "disabled", service: "cockpit" }
 

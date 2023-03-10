@@ -11,16 +11,6 @@
     name: firewalld
     state: started
 
-- name: Configure open ports with firewalld.
-  become: true
-  ansible.posix.firewalld:
-    state: "{{ item.state }}"
-    port: "{{ item.port }}"
-    zone: external
-    immediate: true
-    permanent: true
-  loop: "{{ firewalld_ports }}"
-
 - name: Configure services with firewalld.
   become: true
   ansible.posix.firewalld:
@@ -30,6 +20,16 @@
     immediate: true
     permanent: true
   loop: "{{ firewalld_services }}"
+
+- name: Configure open ports with firewalld.
+  become: true
+  ansible.posix.firewalld:
+    state: "{{ item.state }}"
+    port: "{{ item.port }}"
+    zone: external
+    immediate: true
+    permanent: true
+  loop: "{{ firewalld_ports }}"
 
 - name: Set active firewalld zone.
   ansible.posix.firewalld:
