@@ -32,6 +32,7 @@
   loop: "{{ firewalld_ports }}"
 
 - name: Set active firewalld zone.
+  become: true
   ansible.posix.firewalld:
     zone: "{{ firewalld_zone }}"
     state: enabled
