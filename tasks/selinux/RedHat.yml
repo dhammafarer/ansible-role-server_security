@@ -6,6 +6,7 @@
       - policycoreutils
       - policycoreutils-python-utils
       - setools-console
+      - setroubleshoot-server
     state: present
 
 - name: Ensure SELinux is enabled in `targeted` mode.
