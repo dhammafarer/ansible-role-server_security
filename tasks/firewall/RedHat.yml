@@ -21,12 +21,21 @@
     permanent: true
   loop: "{{ firewalld_services }}"
 
+- name: Ensure ssh port is open in firewall.
+  become: true
+  ansible.posix.firewalld:
+    state: enabled
+    port: "{{ ssh_port }}/tcp"
+    zone: "{{ firewalld_zone }}"
+    immediate: true
+    permanent: true
+
 - name: Configure open ports with firewalld.
   become: true
   ansible.posix.firewalld:
     state: "{{ item.state }}"
     port: "{{ item.port }}"
-    zone: external
+    zone: "{{ firewalld_zone }}"
     immediate: true
     permanent: true
   loop: "{{ firewalld_ports }}"

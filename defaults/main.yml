@@ -2,9 +2,11 @@
 # defaults file for server_security
 ssh_port: 22
 
-selinux_ports_enabled:
-  - ports: "{{ ssh_port }}"
-    setype: "ssh_port_t"
+selinux_ports: []
+#   ports: 22
+#   proto: tcp
+#   setype: ssh_port_t
+#   state: present
 
 # Firewall
 ufw_ports:
@@ -13,8 +15,8 @@ ufw_ports:
   - { rule: "allow", port: 443, proto: "tcp" }
   - { rule: "allow", port: 123, proto: "udp" }
 
-firewalld_ports:
-  - { state: "enabled", port: "{{ ssh_port }}/tcp"}
+firewalld_ports: []
+#  - { state: "enabled", port: "2222/tcp"}
 
 firewalld_services:
   - { state: "enabled", service: "http" }
@@ -26,4 +28,6 @@ firewalld_services:
 
 firewalld_zone: "public"
 
-user_name: vagrant
+user_name: ansible
+
+automatic_updates: true

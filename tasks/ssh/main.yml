@@ -1,4 +1,11 @@
 ---
+- name: Set authorized key from file.
+  become: true
+  ansible.posix.authorized_key:
+    user: "{{ user_name }}"
+    state: present
+    key: "{{ public_key }}"
+
 - name: Update ssh configuration.
   become: true
   ansible.builtin.lineinfile:

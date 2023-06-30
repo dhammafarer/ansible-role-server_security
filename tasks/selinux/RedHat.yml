@@ -15,12 +15,21 @@
     policy: targeted
     state: enforcing
 
-- name: Enable custom port {{ ssh_port }}.
+- name: Ensure ssh port is enabled for custom port {{ ssh_port }}.
+  become: true
+  community.general.seport:
+    ports: "{{ ssh_port }}"
+    proto: tcp
+    setype: ssh_port_t
+    state: present
+  when: ansible_selinux.status == 'enabled'
+
+- name: Enable custom selinux ports.
   become: true
   community.general.seport:
     ports: "{{ item.ports }}"
-    proto: tcp
+    proto: "{{ item.proto }}"
     setype: "{{ item.setype }}"
-    state: present
-  loop: "{{ selinux_ports_enabled }}"
+    state: "{{ item.state }}"
+  loop: "{{ selinux_ports }}"
   when: ansible_selinux.status == 'enabled'
