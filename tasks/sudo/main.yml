@@ -1,19 +1,17 @@
 ---
-- name: Ensure there a exists a user {{ user_name }}.
-  become: true
+- name: Ensure there exists a user named {{ server_security_ansible_user }}.
   ansible.builtin.user:
-    name: "{{ user_name }}"
+    name: "{{ server_security_ansible_user }}"
     state: present
 
-- name: Add sudo rights for deployment user {{ user_name }}.
-  become: true
+- name: Add sudo rights for deployment user {{ server_security_ansible_user }}.
   ansible.builtin.lineinfile:
-    path: /etc/sudoers.d/{{ user_name }}
+    path: /etc/sudoers.d/{{ server_security_ansible_user }}
     create: true
-    mode: "0644"
+    mode: "0640"
     owner: root
     group: root
-    regexp: '^{{ user_name }}'
-    line: '{{ user_name }} ALL=(ALL) NOPASSWD: ALL'
+    regexp: '^{{ server_security_ansible_user }}'
+    line: '{{ server_security_ansible_user }} ALL=(ALL) NOPASSWD: ALL'
     state: present
     validate: 'visudo -cf %s'

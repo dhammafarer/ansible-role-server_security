@@ -1,24 +1,26 @@
 ---
-# defaults file for server_security
-ssh_port: 22
+server_security_ansible_user: ansible
+server_security_public_key: "" # string or URL
 
-selinux_ports: []
+server_security_ssh_port: 22
+
+server_security_selinux_ports: []
 #   ports: 22
 #   proto: tcp
 #   setype: ssh_port_t
 #   state: present
 
 # Firewall
-ufw_ports:
+server_security_ufw_ports:
   - { rule: "allow", port: "{{ ssh_port }}", proto: "tcp" }
   - { rule: "allow", port: 80, proto: "tcp" }
   - { rule: "allow", port: 443, proto: "tcp" }
   - { rule: "allow", port: 123, proto: "udp" }
 
-firewalld_ports: []
+server_security_firewalld_ports: []
 #  - { state: "enabled", port: "2222/tcp"}
 
-firewalld_services:
+server_security_firewalld_services:
   - { state: "enabled", service: "http" }
   - { state: "enabled", service: "https" }
   - { state: "enabled", service: "ntp" }
@@ -26,8 +28,6 @@ firewalld_services:
   - { state: "enabled", service: "dhcpv6-client" }
   - { state: "disabled", service: "cockpit" }
 
-firewalld_zone: "public"
+server_security_firewalld_zone: "public"
 
-user_name: ansible
-
-automatic_updates: true
+server_security_automatic_updates: true

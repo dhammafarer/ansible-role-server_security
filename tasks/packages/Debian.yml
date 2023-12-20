@@ -1,6 +1,5 @@
 ---
 - name: Install unattended upgrades package.
-  become: true
   ansible.builtin.apt:
     name:
       - unattended-upgrades
@@ -8,7 +7,6 @@
     state: present
 
 - name: Copy unattended-upgrades configuration files in place.
-  become: true
   ansible.builtin.template:
     src: "templates/debian/packages/{{ item }}.j2"
     dest: "/etc/apt/apt.conf.d/{{ item }}"
@@ -20,7 +18,6 @@
     - 50unattended-upgrades
 
 - name: Run unattended-upgrades manually to verify configuration.
-  become: true
   ansible.builtin.command:
     cmd: "unattended-upgrades"
   register: result

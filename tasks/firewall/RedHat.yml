@@ -1,49 +1,43 @@
 ---
 - name: Ensure firewalld is installed.
-  become: true
   ansible.builtin.dnf:
     name: firewalld
     state: present
 
 - name: Ensure firewalld is started.
-  become: true
   ansible.builtin.service:
     name: firewalld
     state: started
 
 - name: Configure services with firewalld.
-  become: true
   ansible.posix.firewalld:
     state: "{{ item.state }}"
     service: "{{ item.service }}"
-    zone: "{{ firewalld_zone }}"
+    zone: "{{ server_security_firewalld_zone }}"
     immediate: true
     permanent: true
-  loop: "{{ firewalld_services }}"
+  loop: "{{ server_security_firewalld_services }}"
 
 - name: Ensure ssh port is open in firewall.
-  become: true
   ansible.posix.firewalld:
     state: enabled
-    port: "{{ ssh_port }}/tcp"
-    zone: "{{ firewalld_zone }}"
+    port: "{{ server_security_ssh_port }}/tcp"
+    zone: "{{ server_security_firewalld_zone }}"
     immediate: true
     permanent: true
 
 - name: Configure open ports with firewalld.
-  become: true
   ansible.posix.firewalld:
     state: "{{ item.state }}"
     port: "{{ item.port }}"
-    zone: "{{ firewalld_zone }}"
+    zone: "{{ server_security_firewalld_zone }}"
     immediate: true
     permanent: true
-  loop: "{{ firewalld_ports }}"
+  loop: "{{ server_security_firewalld_ports }}"
 
 - name: Set active firewalld zone.
-  become: true
   ansible.posix.firewalld:
-    zone: "{{ firewalld_zone }}"
+    zone: "{{ server_security_firewalld_zone }}"
     state: enabled
     permanent: true
     immediate: true

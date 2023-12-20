@@ -6,7 +6,7 @@ driver:
   provider:
     name: libvirt
 platforms:
-  - name: rocky9
+  - name: server-security
     box: rockylinux/9
     cpus: 2
     memory: 1024

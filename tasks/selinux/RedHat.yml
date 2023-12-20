@@ -1,6 +1,5 @@
 ---
 - name: Ensure essential SELinux packages are installed.
-  become: true
   ansible.builtin.package:
     name:
       - policycoreutils
@@ -10,26 +9,23 @@
     state: present
 
 - name: Ensure SELinux is enabled in `targeted` mode.
-  become: true
   ansible.posix.selinux:
     policy: targeted
     state: enforcing
 
-- name: Ensure ssh port is enabled for custom port {{ ssh_port }}.
-  become: true
+- name: Ensure ssh port is enabled for custom port {{ server_security_ssh_port }}.
+  when: ansible_selinux.status == 'enabled'
   community.general.seport:
-    ports: "{{ ssh_port }}"
+    ports: "{{ server_security_ssh_port }}"
     proto: tcp
     setype: ssh_port_t
     state: present
-  when: ansible_selinux.status == 'enabled'
 
 - name: Enable custom selinux ports.
-  become: true
+  when: ansible_selinux.status == 'enabled'
   community.general.seport:
     ports: "{{ item.ports }}"
     proto: "{{ item.proto }}"
     setype: "{{ item.setype }}"
     state: "{{ item.state }}"
-  loop: "{{ selinux_ports }}"
-  when: ansible_selinux.status == 'enabled'
+  loop: "{{ server_security_selinux_ports }}"

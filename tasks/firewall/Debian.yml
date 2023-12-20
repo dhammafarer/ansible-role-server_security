@@ -3,18 +3,15 @@
   ansible.builtin.apt:
     name: ufw
     state: present
-  become: true
 
 - name: Configure open ports with ufw.
-  become: true
   community.general.ufw:
     rule: "{{ item.rule }}"
     port: "{{ item.port }}"
     proto: "{{ item.proto }}"
-  loop: "{{ ufw_ports }}"
+  loop: "{{ server_security_ufw_ports }}"
 
 - name: Configure default incoming/outgoing rules with ufw.
-  become: true
   community.general.ufw:
     direction: "{{ item.direction }}"
     policy: "{{ item.policy }}"

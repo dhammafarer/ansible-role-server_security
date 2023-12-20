@@ -1,6 +1,5 @@
 ---
 - name: Remove unused packages.
-  become: true
   ansible.builtin.package:
     name:
       - nano

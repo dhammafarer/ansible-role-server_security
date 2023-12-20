@@ -1,13 +1,11 @@
 ---
 - name: Set authorized key from file.
-  become: true
   ansible.posix.authorized_key:
-    user: "{{ user_name }}"
+    user: "{{ server_security_ansible_user }}"
     state: present
-    key: "{{ public_key }}"
+    key: "{{ server_security_public_key }}"
 
 - name: Update ssh configuration.
-  become: true
   ansible.builtin.lineinfile:
     path: /etc/ssh/sshd_config
     regexp: "{{ item.regexp }}"
@@ -20,5 +18,8 @@
     - regexp: "^PermitRootLogin"
       line: "PermitRootLogin no"
     - regexp: "^Port"
-      line: "Port {{ ssh_port }}"
+      line: "Port {{ server_security_ssh_port }}"
   notify: Restart ssh.
+
+- name: Flush handlers.
+  ansible.builtin.meta: flush_handlers

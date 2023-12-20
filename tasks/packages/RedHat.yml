@@ -1,15 +1,13 @@
 ---
 - name: Setup automatic updates.
-  when: automatic_updates
+  when: server_security_automatic_updates
   block:
     - name: Install dnf-automatic for updates.
-      become: true
       ansible.builtin.dnf:
         name: dnf-automatic
         state: present
 
     - name: Enable a timer unit for dnf-automatic
-      become: true
       ansible.builtin.systemd:
         name: dnf-automatic.timer
         state: started
