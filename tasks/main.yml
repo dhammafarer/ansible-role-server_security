@@ -3,14 +3,15 @@
 - name: Import sudo tasks.
   ansible.builtin.import_tasks: sudo/main.yml
 
-- name: Import ssh tasks.
-  ansible.builtin.import_tasks: ssh/main.yml
-
 - name: Import SELinux tasks.
   ansible.builtin.import_tasks: selinux/main.yml
 
+- name: Import ssh tasks.
+  ansible.builtin.import_tasks: ssh/main.yml
+
 - name: Import AppArmor tasks.
   ansible.builtin.import_tasks: apparmor/main.yml
+
 - name: Import packages tasks.
   ansible.builtin.import_tasks: packages/main.yml
 
