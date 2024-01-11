@@ -9,9 +9,6 @@
 - name: Import ssh tasks.
   ansible.builtin.import_tasks: ssh/main.yml
 
-- name: Import AppArmor tasks.
-  ansible.builtin.import_tasks: apparmor/main.yml
-
 - name: Import packages tasks.
   ansible.builtin.import_tasks: packages/main.yml
 
